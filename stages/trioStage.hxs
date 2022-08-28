@@ -1,0 +1,32 @@
+var bgstatic:FlxSprite = new FlxSprite();
+var bg:FlxSprite = new FlxSprite(-621.1,-395.65).loadGraphic(FNFAssets.getImage(AssetPaths.image('triplestage/Glitch')));
+var trees:FlxSprite = new FlxSprite(-607.35, -401.55).loadGraphic(FNFAssets.getImage(AssetPaths.image('triplestage/Trees')));
+var bg2:FlxSprite = new FlxSprite(-623.5, -410.4).loadGraphic(FNFAssets.getImage(AssetPaths.image('triplestage/Trees2')));
+var floor:FlxSprite = new FlxSprite(-630.4, -266).loadGraphic(FNFAssets.getImage(AssetPaths.image('triplestage/Grass')));
+function tailsjump(){
+    trace(tailsjump);
+    tailsjump.alpha = 1;
+    tailsjump.screenCenter();
+    tailsjump.scrollFactor.set();
+    tailsjump.cameras = [PlayState.camHUD];
+}
+function create() {
+bgstatic.frames = FNFAssets.getSparrow('triplestage/NewTitleMenuBG');
+bgstatic.animation.addByPrefix("idle", "TitleMenuSSBG instance 1");
+removeStage();
+bgstatic.alpha = 0.00001;
+bgstatic.scale.set(4.5,4.5);
+bgstatic.animation.play("idle");
+PlayState.remove(gf);
+add(bg);
+add(bgstatic);
+add(trees);
+add(bg2);
+add(floor);
+}
+function stepHit(curStep:Int){
+    switch(curStep){
+        case 1040:
+            bgstatic.alpha = 1;
+    }
+}

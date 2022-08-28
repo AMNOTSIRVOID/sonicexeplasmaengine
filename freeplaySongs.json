@@ -1,0 +1,13 @@
+{
+    "songs": [
+        {
+            "name": "triple-trouble",
+            "difficulties": [
+                "hard"
+            ],
+            "icon": "xeno",
+            "color": [104, 177, 232],
+            "bpm": 150
+        }
+    ]
+}

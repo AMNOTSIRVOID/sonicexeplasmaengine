@@ -1,0 +1,4 @@
+function create(){
+    character.frames = FNFAssets.getCharacterSparrow(character.curCharacter);
+    character.loadYoshiJSON(); // loads config.json from char folder
+} 

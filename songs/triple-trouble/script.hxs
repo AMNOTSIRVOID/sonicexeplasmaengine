@@ -1,0 +1,116 @@
+var tailsjumps:FlxSprite = new FlxSprite().loadGraphic(FNFAssets.getImage(AssetPaths.image("jumps/Tails")));
+var kunkjump:FlxSprite;
+var static:FlxSprite = new FlxSprite();
+var bf2:Boyfriend = new Boyfriend(502.45 + 200, 370.45, 'bf2');
+var bfflip:Boyfriend = new Boyfriend(466.1, 685.6 - 300, 'bf');
+var kunk:Character = new Character(1300 + 100 - 206, 260 + 44, 'kunk');
+var xenoflip:Character = new Character(750 - 250, -94.75 + 100, 'xenoflip');
+var bf2flip:Character = new Boyfriend(702.45 - 350, 370.45, 'bf2flip');
+function tailsJump(){
+    trace(tailsjumps);
+    tailsjumps.alpha = 1;
+    tailsjumps.screenCenter();
+    tailsjumps.scrollFactor.set();
+    tailsjumps.cameras = [PlayState.camHUD];
+    FlxTween.tween(tailsjumps,{alpha:0 }, 1);
+    FlxG.sound.play(FNFAssets.getSound(AssetPaths.sound("TailsScreamLOL")), .1);
+}
+function dostatic(){
+    PlayState.add(static);
+    static.frames = FNFAssets.getSparrow('events/Phase3Static');
+    static.animation.addByPrefix("do", "Phase3Static instance 1", 24, false);
+    static.animation.play("do", true, false);
+    static.scale.set(4,4);
+    static.screenCenter();
+    static.alpha = 0.85;
+    static.cameras = [PlayState.camHUD];
+    static.animation.finishCallback = function(pog:String) {
+		trace('ended p3static');
+		static.alpha = 0;
+
+		remove(static);
+	};
+}
+
+function kunkjump(){
+    /*trace(tailsjump);
+    tailsjump.alpha = 1;
+    tailsjump.screenCenter();
+    tailsjump.scrollFactor.set();
+    tailsjump.cameras = [PlayState.camHUD];*/
+}
+var xeno:Character = new Character(-180, 5, "xeno");
+function create(){
+    
+    //tailsJump = new FlxSprite().loadGraphic(FNFAssets.getImage(AssetPaths.image("jumps/Tails")));
+    kunkjump = new FlxSprite().loadGraphic(FNFAssets.getImage(AssetPaths.image("jumps/Knuckles")));
+    PlayState.add(tailsjumps);
+    tailsjumps.alpha = 0.0001;
+    xeno.alpha = 0.001;
+    bf2.alpha = 0.001;
+    trace(tailsjumps);
+    add(xeno);
+    PlayState.dads.push(xeno);
+    add(bf2);
+    PlayState.bfs.push(bf2);
+    add(kunk);
+    PlayState.dads.push(kunk);
+} 
+
+function beatHit(curBeat:Int){
+    
+    if (curBeat % 4 == 1){
+        bfflip.dance();        
+        bf2.dance();
+    }
+
+    
+}
+function stepHit(curStep:Int){
+    switch (curStep){
+        case 2:
+            PlayState.remove(gf);
+        case 1, 1024, 1088, 1216, 1280, 2305, 2810, 3199, 4096:
+            dostatic();
+        case 144:
+            tailsJump();
+        case 1040:
+            PlayState.UI.iconP2.changeIcon("xeno");
+            xeno.alpha = 1;
+            PlayState.remove(dad);
+            PlayState.dad = new Character(-180, 5, "xeno");
+            PlayState.bf = new Boyfriend(502.45 + 200, 370.45, 'bf2');
+            bf2.alpha = 1;
+            PlayState.remove(bf);
+            PlayState.UI.healthColors[0] = 0xff8f0fca;
+            PlayState.refreshHealthBar();
+            bf2.dance();
+        case 1296:
+            PlayState.remove(xeno);
+            add(kunk);
+            PlayState.dad = new Character(1300 + 100 - 206, 260 + 44, 'kunk');
+            PlayState.UI.iconP2.changeIcon("kunk");
+            PlayState.UI.healthColors[0] = 0xff671919;
+            bf2.alpha = 0.0001;
+            PlayState.bf = new Boyfriend(466.1, 685.6 - 300, 'bf');
+            PlayState.bf.visible = false;
+            PlayState.bfs.push(bfflip);
+            PlayState.add(bfflip);
+            PlayState.refreshHealthBar();
+            bfflip.dance();        
+        case 2320:
+            remove(kunk);
+            PlayState.dad = new Character(750 - 250, -94.75 + 100, 'xenoflip');
+            PlayState.bf = new Boyfriend(702.45 - 350, 370.45, 'bf2flip');
+            add(xenoflip);
+            add(bf2flip);
+            PlayState.dads.push(xenoflip);
+            PlayState.bfs.push(bf2flip);
+            PlayState.UI.iconP2.changeIcon("xeno");
+            PlayState.UI.healthColors[0] = 0xff8f0fca;
+            PlayState.refreshHealthBar();
+
+
+        
+    }
+}
