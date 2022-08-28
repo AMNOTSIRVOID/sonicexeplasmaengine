@@ -26,7 +26,9 @@ add(floor);
 }
 function stepHit(curStep:Int){
     switch(curStep){
-        case 1040:
+        case 1040,2320,4096:
             bgstatic.alpha = 1;
+        case 1296,2823:
+            bgstatic.alpha = 0.001;
     }
 }

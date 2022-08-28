@@ -6,6 +6,8 @@ var bfflip:Boyfriend = new Boyfriend(466.1, 685.6 - 300, 'bf');
 var kunk:Character = new Character(1300 + 100 - 206, 260 + 44, 'kunk');
 var xenoflip:Character = new Character(750 - 250, -94.75 + 100, 'xenoflip');
 var bf2flip:Character = new Boyfriend(702.45 - 350, 370.45, 'bf2flip');
+var eggman:Character = new Character(20 - 200, 30 + 200, 'eggman');
+var bfl:Boyfriend = new Boyfriend(466.1 + 200, 335.6 - 250, 'bf');
 function tailsJump(){
     trace(tailsjumps);
     tailsjumps.alpha = 1;
@@ -41,7 +43,6 @@ function kunkjump(){
 }
 var xeno:Character = new Character(-180, 5, "xeno");
 function create(){
-    
     //tailsJump = new FlxSprite().loadGraphic(FNFAssets.getImage(AssetPaths.image("jumps/Tails")));
     kunkjump = new FlxSprite().loadGraphic(FNFAssets.getImage(AssetPaths.image("jumps/Knuckles")));
     PlayState.add(tailsjumps);
@@ -55,16 +56,17 @@ function create(){
     PlayState.bfs.push(bf2);
     add(kunk);
     PlayState.dads.push(kunk);
+    add(xenoflip);
+    add(bf2flip);
 } 
 
 function beatHit(curBeat:Int){
     
-    if (curBeat % 4 == 1){
+    if (curBeat % 5 == 1){
         bfflip.dance();        
         bf2.dance();
-    }
-
-    
+        bfl.dance();
+    }    
 }
 function stepHit(curStep:Int){
     switch (curStep){
@@ -102,14 +104,22 @@ function stepHit(curStep:Int){
             remove(kunk);
             PlayState.dad = new Character(750 - 250, -94.75 + 100, 'xenoflip');
             PlayState.bf = new Boyfriend(702.45 - 350, 370.45, 'bf2flip');
-            add(xenoflip);
-            add(bf2flip);
             PlayState.dads.push(xenoflip);
             PlayState.bfs.push(bf2flip);
             PlayState.UI.iconP2.changeIcon("xeno");
             PlayState.UI.healthColors[0] = 0xff8f0fca;
             PlayState.refreshHealthBar();
-
+        case 2823:
+            remove(xenoflip);
+            remove(bf2flip);
+            PlayState.bf = new Boyfriend(466.1 + 200, 335.6 - 250, 'bf');
+            PlayState.dad = new Character(20 - 200, 30 + 200, 'eggman');
+            PlayState.dads.push(eggman);
+            PlayState.bfs.push(bfl);
+            add(eggman);
+            add(bfl);
+            bfl.flipX = false;
+            
 
         
     }
