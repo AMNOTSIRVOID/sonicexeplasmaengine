@@ -62,7 +62,7 @@ function create(){
 
 function beatHit(curBeat:Int){
     
-    if (curBeat % 5 == 1){
+    if (curBeat % 4 == 1){
         bfflip.dance();        
         bf2.dance();
         bfl.dance();
@@ -102,6 +102,7 @@ function stepHit(curStep:Int){
             bfflip.dance();        
         case 2320:
             remove(kunk);
+            remove(bfflip);
             PlayState.dad = new Character(750 - 250, -94.75 + 100, 'xenoflip');
             PlayState.bf = new Boyfriend(702.45 - 350, 370.45, 'bf2flip');
             PlayState.dads.push(xenoflip);
